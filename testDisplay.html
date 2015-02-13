@@ -1,0 +1,125 @@
+<html>
+<head>
+
+<script src="jquery-2.1.3.min.js"></script>
+
+<script>
+
+$(document).ready(function() {
+
+createRegister("", "AB05", 16);
+//createRegister("", "F3E1", 32);
+//createRegister("-1445494558", "", 32);
+//createRegister("-3874", "", 32);
+
+		
+
+});
+
+
+function createRegister(dec, hex, size) {
+
+	var c = [];
+
+	c.push("<table class='display'><tbody><tr id='template'>");
+
+
+	var bin;
+	var sign;
+
+	if(dec !== "") {
+		hex = convertBase(dec, 10, 16);
+		bin = convertBase(dec, 10, 2);
+
+	} else if(hex !== "") {
+		dec = convertBase(hex, 16, 10);
+		bin = convertBase(hex, 16, 2);
+	} else {
+		alert("whaaaa");
+	}
+
+
+	c.push("<td class='num'>" + dec + "</td>");
+	c.push("<td class='num'>" + hex + "</td>");
+
+	var binStr;
+	var b ;
+	if(bin < 0) {
+		bin = Math.abs(bin);
+		binStr = (pad(bin, size)).toString();
+		var tempBin = binStr;
+		var nb = binStr.split('');
+		for(var i = 0; i < size; i++) {
+			nb[i] = (nb[i] == 0 ? 1 : 0);
+		}		
+	
+
+		bin = parseInt(nb.join(''),2) + 1;
+		binStr = nb.join('');
+
+	} else {
+		binStr = (pad(bin, size)).toString();
+		
+	}
+
+	b = binStr.split('');
+
+	for(var i = 0; i < size; i++) {
+		c.push("<td>" + b[i] + "</td>");
+	}
+
+	c.push("</tr></tbody></table>");
+
+	$("body").append(c.join(''));
+
+
+	console.log(convertBase("0101010011111010",2,10));
+
+
+}
+
+function convertBase  (num, from, to) {
+	var num1 = parseInt(num, parseInt(from));
+	var num2 = num1.toString(parseInt(to));
+	return num2;
+};
+
+function getTwos (bin) {
+	return ~bin;
+}
+
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
+
+</script>
+
+
+<style>	
+
+body {
+	font-family: Courier New;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+.num {
+	width: 100px;
+}
+
+</style>
+
+</head>
+<body></body>
+</html>
+
+

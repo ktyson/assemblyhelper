@@ -1,0 +1,184 @@
+Karl Tyson
+
+1.1 5-8 bin -> dec
+1025
+11071
+4132
+3226
+
+1.1 5-8 bin -> hex
+401
+2b3f
+1024
+c9a
+
+1.1 13-16 hex -> dec
+161283
+357383
+5254
+137285
+
+1.1 13-16 hex -> bin
+100111011000000011
+1010111010000000111
+1010010000110
+100001100001000101
+
+1.1 21-24 dec -> bin
+1110011010001100
+1010110110011
+1001101101011
+10011100001111
+
+1.1 21-24 dec -> hex
+e68c
+15b3
+136b
+270f
+
+1.1 25
+1
+1
+0
+9
+3
+6
+=
+11:09:36
+
+1.1 26
+0
+2
+5
+7
+3
+8
+=
+02:57:38
+
+1.2 1(e) 0x4861
+dec: 114.151
+ascii: Ha
+
+
+1.2 1(f) 0x3925
+dec: 87.55
+ascii: 9%
+
+1.1 2(f)
+72
+105
+115
+116
+111
+114
+121
+44
+32
+108
+105
+107
+101
+32
+98
+101
+97
+117
+116
+121
+44
+32
+100
+101
+112
+101
+110
+100
+115
+32
+108
+97
+114
+103
+101
+108
+121
+32
+111
+110
+32
+116
+104
+101
+32
+98
+101
+104
+111
+108
+100
+101
+114
+46
+
+
+1.1 2(g)
+50
+53
+32
+43
+32
+51
+55
+32
+45
+32
+49
+56
+32
+61
+32
+63
+
+1.1 3(f)
+Greetings!
+
+1.1 3(g)
+2016 is a leap year
+
+
+
+
+
+var input = [0x32, 0x30, 0x31, 0x36, 0x20, 0x69, 0x73, 0x20,
+0x61, 0x20, 0x6c, 0x65, 0x61, 0x70, 0x20, 0x79, 0x65, 0x61, 0x72];
+
+getText(input);
+
+function getText (input) { 
+	var text = "";
+
+	input.forEach(function(charCode) {
+		decCharCode = parseInt(charCode, 10);
+		text += String.fromCharCode(decCharCode);
+	});
+
+	console.log(text); 
+}
+
+
+var input = {
+"F":16, "T":10,
+"N":[0x48, 0x61, 0x39, 0x25]};
+
+
+for (var i = 0; i < input.N.length; i++) {
+	var output = convertBase (input.N[i]);
+	console.log(output);
+}
+
+function convertBase  (num) {
+	var num1 = parseInt(num, parseInt(input.F));
+	var num2 = num1.toString(parseInt(input.T));
+	return num2;
+};
