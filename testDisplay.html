@@ -7,11 +7,25 @@
 
 $(document).ready(function() {
 
-createRegister("", "AB05", 16);
+//createRegister("", "AB05", 16);
 //createRegister("", "F3E1", 32);
 //createRegister("-1445494558", "", 32);
-//createRegister("-3874", "", 32);
+createRegister("3874", "", 16);
+    createRegister("-3874", "", 16);
 
+$(".popup").on("click", function() {
+    
+
+    var regTR = $(this).parent().parent();
+    var binTDs = regTR.find("td.bin");
+    var binDisplay = "";
+    for(var i = 0; i < binTDs.length; i++) {
+        binDisplay +=    $(binTDs[i]).text();
+    }
+    
+    
+    alert(binDisplay); 
+});
 		
 
 });
@@ -21,7 +35,7 @@ function createRegister(dec, hex, size) {
 
 	var c = [];
 
-	c.push("<table class='display'><tbody><tr id='template'>");
+	c.push("<table class='display'><tbody><tr class='template'>");
 
 
 	var bin;
@@ -65,15 +79,16 @@ function createRegister(dec, hex, size) {
 	b = binStr.split('');
 
 	for(var i = 0; i < size; i++) {
-		c.push("<td>" + b[i] + "</td>");
+		c.push("<td class='bin'>" + ((i+1)%8 == 0 ? b[i] + '&nbsp;' : b[i]) + "</td>");
 	}
+    c.push("<td><input type='button' class='popup'></input></td>");
 
 	c.push("</tr></tbody></table>");
 
 	$("body").append(c.join(''));
 
 
-	console.log(convertBase("0101010011111010",2,10));
+	//console.log(convertBase("0101010011111010",2,10));
 
 
 }
