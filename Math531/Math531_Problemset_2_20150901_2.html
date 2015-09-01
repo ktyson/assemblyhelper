@@ -5,18 +5,17 @@
     
 var canvas;
 var ctx;
-
-var OFFSET_X = 10;
+    
+var OFFSET_X = 30;
 var OFFSET_Y = 10;
-var SCALE_X = 1;
-var SCALE_Y = 1;
+var SCALE_X = 6;
+var SCALE_Y = 6;
     
 function ready() {
-    
-    canvas = document.getElementById("myCanvas");
+
+	canvas = document.getElementById("myCanvas");
 	ctx = canvas.getContext("2d");
-
-
+    
     if (document.body.addEventListener) {
         document.body.addEventListener('click',clickHandler,false);
     } else {
@@ -44,9 +43,33 @@ function clickHandler(e) {
 		}
 		        
     }
+    if (target.id.match(/go/)) {
+        
+        var a = parseFloat(document.getElementById("a").value);
+        var b = parseFloat(document.getElementById("b").value);   
+        var c = Math.sqrt(a*a+b*b);
+        
+        document.getElementById("answer").textContent = c + " diff between b and c: " + (c - b);
+        drawFigure(a,b);
+
+    }
 }
 
 
+function drawFigure(a,b) {
+
+    
+
+    ctx.beginPath();
+    ctx.moveTo(OFFSET_X,OFFSET_Y);
+    ctx.lineTo(OFFSET_X+(b*SCALE_X),OFFSET_Y);
+    ctx.lineTo(OFFSET_X+(b*SCALE_X),OFFSET_Y+(a*SCALE_Y));
+    ctx.lineTo(OFFSET_X,OFFSET_Y);
+    ctx.stroke();    
+    
+    
+}
+    
 
 </script>
 
@@ -59,6 +82,7 @@ body {
 
 .sectionHead {
 	font-weight: bold;
+	xxfont-size: 14pt;
 }
 
 .sectionNote {
@@ -86,7 +110,7 @@ body {
 </head>
 <body onLoad="ready();">
 
-<h2>Math 531 Title Here</h2>
+<h2>Math 531 Problemset 2 2015-09-01 #2</h2>
 
 <input id="toggle_MathML" class="HideShowButton VisibleCue" type="button" value="Formula"></input>
 <input id="toggle_IntroObjective" class="HideShowButton VisibleCue" type="button" value="Text"></input>
@@ -97,36 +121,40 @@ body {
 
 
 
-<div id="MathML" class="hideshow">
+<div id="MathML" class="hideshow ">
 <span class="sectionHead">Formula </span><span class="sectionNote"> (MathML use FireFox)</span>
 <div>
-        <math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><msup><mi>x</mi><mn>3</mn></msup><mn>3</mn></mfrac></math>
+<math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>a</mi><mn>2</mn></msup><mo>&#160;</mo><mo>+</mo><mo>&#160;</mo><msup><mi>b</mi><mn>2</mn></msup><mo>&#160;</mo><mo>=</mo><mo>&#160;</mo><msup><mi>c</mi><mn>2</mn></msup><br/><math xmlns="http://www.w3.org/1998/Math/MathML"><mspace linebreak="newline"/><mi>c</mi><mo>&#160;</mo><mo>&#160;</mo><mo>=</mo><mo>&#160;</mo><mo>&#160;</mo><msqrt><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></msqrt></math>
 </div>
 </div>
 
 
 <div id="IntroObjective" class="hideshow">
 <span class="sectionHead">Text </span> <span class="sectionNote"></span>
-<p>Do: </p>
-<p>Question: </p>
-<p>Answer: </p>
+<p>Do: Solve Problem 8 of Chapter 9 of Jiuzhang Nine Chapters of the Mathematical Art</p>
+<p>Question: A wall (side a of a right triangle) is 10 units tall. A pole leaning against the wall is the c side (hypotenuse). Moving the pole out 1 unit will make it the b side to a new hypotenuse. How long is the pole (begins as c side and ends as b side)?</p>
+<p>Answer: 50 units. By method of repeated trials seeking a difference of 1 unit between sides b and c: the pole on side c (hypotenuse) that starts at 50 units with side b at 49 units, then one withdraws 1 unit, by pulling the pole out, to equal 49 units, which collapses to become the new side b.</p>
+    <p>Note the graph figure shown is set upside down from the wall scenario.</p>
 </div>
 
     
 <div id="CodeSegments" class="hideshow">
 <span class="sectionHead">Code </span><span class="sectionNote">(view source html script element for complete javascript code)</span>
 <pre>
-	var calc = (Math.pow((x * sign), exp)) / exp;
+	var c = Math.sqrt(a*a+b*b);
 </pre>
 </div>
 
 <div id="DataEntry" class="hideshow">
 <span class="sectionHead">Program </span><span class="sectionNote">(Enter and Process Results)</span>
 
-<div>Enter x:<input id="x" value="0.7"></input>
+<div>Enter side b (49):<input id="b" value="20"></input>
 </div>
-<div><input type="button" value="Go" id="go"></input>
+<div>Enter side a (10):<input id="a" value="10"></input>
 </div>
+<div><input type="button" value="Go" id="go"></input><span>  c = </span><span id="answer"></span>
+</div>
+
 </div>
 
 <div id="GraphicsCanvas" class="hideshow">

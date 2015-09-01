@@ -8,8 +8,8 @@ var ctx;
 
 var OFFSET_X = 10;
 var OFFSET_Y = 10;
-var SCALE_X = 1;
-var SCALE_Y = 1;
+var SCALE_X = 4;
+var SCALE_Y = 4;
     
 function ready() {
     
@@ -44,6 +44,39 @@ function clickHandler(e) {
 		}
 		        
     }
+    if (target.id.match(/go/)) {
+        
+        var a = parseFloat(document.getElementById("a").value);
+        var b, c;
+        if(a % 2 == 0) {
+            //even
+            b = (a*a - 4) / 4;
+            c = b + 2;
+        } else {
+            //odd
+            b = (a*a - 1) / 2;
+            c = b + 1;          
+        }
+        
+        document.getElementById("answer").textContent = "(" + a + ", " + b + ", " + c + ")";
+        drawFigure(a,b);
+
+
+    }
+}
+    
+function drawFigure(a,b) {
+
+    
+
+    ctx.beginPath();
+    ctx.moveTo(OFFSET_X,OFFSET_Y);
+    ctx.lineTo(OFFSET_X+(b*SCALE_X),OFFSET_Y);
+    ctx.lineTo(OFFSET_X+(b*SCALE_X),OFFSET_Y+(a*SCALE_Y));
+    ctx.lineTo(OFFSET_X,OFFSET_Y);
+    ctx.stroke();    
+    
+    
 }
 
 
@@ -86,7 +119,7 @@ body {
 </head>
 <body onLoad="ready();">
 
-<h2>Math 531 Title Here</h2>
+<h2>Math 531 Problemset 2 2015-09-01 #4</h2>
 
 <input id="toggle_MathML" class="HideShowButton VisibleCue" type="button" value="Formula"></input>
 <input id="toggle_IntroObjective" class="HideShowButton VisibleCue" type="button" value="Text"></input>
@@ -100,15 +133,16 @@ body {
 <div id="MathML" class="hideshow">
 <span class="sectionHead">Formula </span><span class="sectionNote"> (MathML use FireFox)</span>
 <div>
-        <math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><msup><mi>x</mi><mn>3</mn></msup><mn>3</mn></mfrac></math>
+N/A
 </div>
 </div>
 
 
 <div id="IntroObjective" class="hideshow">
 <span class="sectionHead">Text </span> <span class="sectionNote"></span>
-<p>Do: </p>
-<p>Question: </p>
+<p>Do: Given number a. If a is odd square it and divide by 2 to find b. Add 1 to b to find c.</p>
+    <p>If a is even, square it, subtract 4 and divide by 4 to get b. Add 2 to b to find c.</p>
+<p>Question: These operations yield Pythagorean triples. Why does this work?</p>
 <p>Answer: </p>
 </div>
 
@@ -116,17 +150,25 @@ body {
 <div id="CodeSegments" class="hideshow">
 <span class="sectionHead">Code </span><span class="sectionNote">(view source html script element for complete javascript code)</span>
 <pre>
-	var calc = (Math.pow((x * sign), exp)) / exp;
+        if(a % 2 == 0) {
+            //even
+            b = (a*a - 4) / 4;
+            c = b + 2;
+        } else {
+            //odd
+            b = (a*a - 1) / 2;
+            c = b + 1;          
+        }
 </pre>
 </div>
 
 <div id="DataEntry" class="hideshow">
 <span class="sectionHead">Program </span><span class="sectionNote">(Enter and Process Results)</span>
 
-<div>Enter x:<input id="x" value="0.7"></input>
+<div>Pick a number <i>a</i>:  <input id="a" value="2"></input>
 </div>
 <div><input type="button" value="Go" id="go"></input>
-</div>
+</div><span>  Calculated Triple (a,b,c) = </span><span id="answer"></span>
 </div>
 
 <div id="GraphicsCanvas" class="hideshow">
