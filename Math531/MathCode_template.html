@@ -1,0 +1,136 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script>
+    
+var canvas;
+var ctx;
+    
+function ready() {
+
+
+    if (document.body.addEventListener) {
+        document.body.addEventListener('click',clickHandler,false);
+    } else {
+        document.body.attachEvent('onclick',clickHandler);//for IE
+    }
+
+}
+
+
+function clickHandler(e) {
+
+    e = e || window.event;
+    var target = e.target || e.srcElement;
+    if (target.className.match(/HideShowButton/)) {
+	
+		//var allViewDivs = document.getElementsByClass("HideShowButton");
+		var elToToggle = document.getElementById(e.target.id.substring("toggle_".length));
+		if(elToToggle.style.display == "none") {
+			elToToggle.style.display = "block";
+			e.target.className = "HideShowButton VisibleCue";
+
+		} else {
+			elToToggle.style.display = "none";
+			e.target.className = "HideShowButton HiddenCue";
+		}
+		        
+    }
+}
+
+
+
+</script>
+
+
+<style>
+
+body {
+	position: relative;
+}
+
+.sectionHead {
+	font-weight: bold;
+	xxfont-size: 14pt;
+}
+
+.sectionNote {
+	font-size: 8pt;
+    font-style: italic;
+}
+    
+.HideShowButton {
+	font-weight: bold;
+}
+.hideshow {
+	border: solid black 1px;
+	margin: 4px;
+    padding: 4px;
+}
+.VisibleCue {
+	background-color: lightgreen;
+}
+.HiddenCue {
+	background-color: pink;
+}
+
+</style>
+
+</head>
+<body onLoad="ready();">
+
+<h2>Math 531 Title Here</h2>
+
+<input id="toggle_MathML" class="HideShowButton VisibleCue" type="button" value="Formula"></input>
+<input id="toggle_IntroObjective" class="HideShowButton VisibleCue" type="button" value="Text"></input>
+<input id="toggle_CodeSegments" class="HideShowButton VisibleCue" type="button" value="Code"></input>
+<input id="toggle_DataEntry" class="HideShowButton VisibleCue" type="button" value="Program"></input>
+<input id="toggle_GraphicsCanvas" class="HideShowButton VisibleCue" type="button" value="Graph"></input>
+
+
+
+
+<div id="MathML" class="hideshow">
+<span class="sectionHead">Formula </span><span class="sectionNote"> (MathML use FireFox)</span>
+<div>
+        <math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><msup><mi>x</mi><mn>3</mn></msup><mn>3</mn></mfrac></math>
+</div>
+</div>
+
+
+<div id="IntroObjective" class="hideshow">
+<span class="sectionHead">Text </span> <span class="sectionNote"></span>
+<p>Do: </p>
+<p>Question: </p>
+<p>Answer: </p>
+</div>
+
+    
+<div id="CodeSegments" class="hideshow">
+<span class="sectionHead">Code </span><span class="sectionNote">(view source html script element for complete javascript code)</span>
+<pre>
+	var calc = (Math.pow((x * sign), exp)) / exp;
+</pre>
+</div>
+
+<div id="DataEntry" class="hideshow">
+<span class="sectionHead">Program </span><span class="sectionNote">(Enter and Process Results)</span>
+
+<div>Enter x:<input id="x" value="0.7"></input>
+</div>
+<div><input type="button" value="Go" id="go"></input>
+</div>
+</div>
+
+<div id="GraphicsCanvas" class="hideshow">
+    
+<span class="sectionHead">Graph </span><span class="sectionNote">(HTML Canvas)</span>
+<div>
+<canvas id="myCanvas" width="500px" height="200px" style="border:1px solid blue"></canvas>    
+</div>
+</div>
+
+
+
+</body>
+</html>
