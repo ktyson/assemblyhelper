@@ -1,0 +1,93 @@
+<html>
+<head>
+
+<script src="jquery-2.1.1.min.js"></script>
+<script>
+
+
+$("body").ready(function() {
+	
+
+	$("#go").on("click", function() {
+
+		var rangeStart = -20;
+		var rangeEnd = 20 + 1;
+
+		var iterations = 1000;
+
+		$("#answer").html("");
+		$("#funcLabel").html(alg1.label);
+
+		for(var i = 0; i <iterations; i++) {
+
+			var x = getRandom(rangeStart, rangeEnd);
+			var y = getRandom(rangeStart, rangeEnd);
+//console.log(x);
+
+			if(alg1.func(x,y)) {
+				printAnswer("Solved by " + x + ", " + y + "<br/>");
+				//break;
+			}
+		}
+
+	});
+
+alg1 = {};
+alg1.func = function(x) {return (x/2+2==5 ? true : false)};
+alg1.label = "x / 2 + 2 = 5";
+
+alg1 = {};
+alg1.func = function(x, y) {return (x/2+2==y ? true : false)};
+alg1.label = "x / 2 + 2 = y";
+
+
+function getRandom(rangeStart, rangeEnd) {
+
+	return rangeStart + Math.floor(Math.random() * (rangeEnd - rangeStart));
+
+}
+
+function printAnswer(text) {
+
+	$("#answer").append("<span class='n'>" + text + "</span>");
+
+}
+
+
+
+});
+
+</script>
+
+<style>
+
+table {
+	border-collapse: collapse;
+}
+
+.n {
+	margin-right: 4px;
+}
+
+</style>
+
+
+</head>
+<body>
+
+	<h3>random generator</h3>
+
+	<div id = "funcLabel"></div>
+
+	<input type="button" value="Go" id="go"></input>
+
+
+
+	<div id="answer"></div>
+
+
+
+
+
+</body>
+</html>
